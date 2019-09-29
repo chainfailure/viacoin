@@ -26,8 +26,6 @@ class CAuxPow : public CMerkleTx
     unsigned int nChainIndex;
     CBlockHeader parentBlockHeader;
 
-    ADD_SERIALIZE_METHODS;
-
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action) {
         READWRITE(*(CMerkleTx*)this);

@@ -440,7 +440,7 @@ explicit CDiskBlockIndex(const CBlockIndex* pindex, const std::shared_ptr<CAuxPo
         READWRITE(nNonce);
 
         // auxpow is not part of the blockhash
-        if ((!(s.GetType() & SER_GETHASH)) && this->isAuxPow)
+        if ((!(s.GetType() & SER_GETHASH)) && this->isAuxPow())
             READWRITE(auxpow);
     }
 

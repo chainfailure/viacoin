@@ -763,6 +763,19 @@ static UniValue submitblock(const JSONRPCRequest& request)
     return BIP22ValidationResult(sc.state);
 }
 
+CKeyID GetAuxpowMiningKey()
+{
+    CKeyID result;
+    // CBitcoinSecret auxminingaddr(gArgs.GetArg("-auxminingaddr", ""));
+    // if (!auxminingaddr.GetKeyID(result)) {
+    //     CReserveKey reservekey(vpwallets[0]);
+    //     CPubKey pubkey;
+    //     reservekey.GetReservedKey(pubkey);
+    //     result = pubkey.GetID();
+    // }
+    return result;
+}
+
 UniValue getauxblock(const JSONRPCRequest& request)
 {
     if (request.fHelp || (request.params.size() != 0 && request.params.size() != 2))
@@ -846,9 +859,9 @@ UniValue getauxblock(const JSONRPCRequest& request)
             throw std::runtime_error("block has invalid difficulty bits");
 
         UniValue result(UniValue::VOBJ);
-        result.push_back(Pair("target", HexStr(BEGIN(hashTarget), END(hashTarget))));
-        result.push_back(Pair("hash", pblock->GetHash().GetHex()));
-        result.push_back(Pair("chainid", pblock->GetChainID()));
+        result.pushKV("target", HexStr(BEGIN(hashTarget), END(hashTarget)));
+        result.pushKV("hash", pblock->GetHash().GetHex());
+        result.pushKV("chainid", pblock->GetChainID());
         return result;
     }
     else

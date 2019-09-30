@@ -1,7 +1,8 @@
 #ifndef BITCOIN_AUXPOW_CHECK_H
 #define BITCOIN_AUXPOW_CHECK_H
 
-#include "util.h"
+#include "util/strencodings.h"
+#include "util/system.h"
 #include "uint256.h"
 #include "consensus/params.h"
 #include "auxpow.h"

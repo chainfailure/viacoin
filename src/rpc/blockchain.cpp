@@ -55,8 +55,6 @@ static Mutex cs_blockchange;
 static std::condition_variable cond_blockchange;
 static CUpdatedBlock latestblock;
 
-extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry);
-
 /* Calculate the difficulty for a given block index.
  */
 double GetDifficulty(const CBlockIndex* blockindex)
@@ -138,7 +136,7 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* tip, const CBlockIn
         auxpow.pushKV("size", (int)::GetSerializeSize(*block.auxpow, SER_NETWORK, PROTOCOL_VERSION));
 
         UniValue coinbasetx(UniValue::VOBJ);
-        TxToJSON(*block.auxpow->tx, uint256(), coinbasetx);
+        TxToUniv(*block.auxpow->tx, uint256(), coinbasetx, true, RPCSerializationFlags());
         auxpow.pushKV("coinbasetx", coinbasetx);
 
         UniValue coinbaseMerkle(UniValue::VARR);

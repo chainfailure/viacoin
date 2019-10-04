@@ -4488,7 +4488,7 @@ int CMerkleTx::GetBlocksToMaturity(interfaces::Chain::Lock& locked_chain) const
     //return std::max(0, (COINBASE_MATURITY+1) - chain_depth);
     int nMaturity = Params().GetConsensus().fPowNoRetargeting ?
 	                    COINBASE_MATURITY_REGTEST : COINBASE_MATURITY;
-    return std::max(0, (nMaturity+1) - chain_depth)
+    return std::max(0, (nMaturity+1) - chain_depth);
 }
 
 bool CMerkleTx::IsImmatureCoinBase(interfaces::Chain::Lock& locked_chain) const

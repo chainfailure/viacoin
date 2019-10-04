@@ -287,11 +287,11 @@ public:
         /* mutable stuff goes here, immutable stuff
         * has SERIALIZE functions in CDiskBlockIndex */
        if (!(s.GetType() & SER_GETHASH))
-            READWRITE(VARINT(nVersion));
+            READWRITE(VARINT(nVersion, VarIntMode::NONNEGATIVE_SIGNED));
 
         READWRITE(VARINT(nStatus));
         if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
-            READWRITE(VARINT(nFile));
+            READWRITE(VARINT(nFile, VarIntMode::NONNEGATIVE_SIGNED));
         if (nStatus & BLOCK_HAVE_DATA)
             READWRITE(VARINT(nDataPos));
         if (nStatus & BLOCK_HAVE_UNDO)

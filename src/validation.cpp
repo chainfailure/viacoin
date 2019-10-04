@@ -3292,7 +3292,7 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
     // Check and validate auxpow
     if (block.auxpow && block.auxpow.get() != nullptr)
     {
-        if (nHeight < consensusParams.nAuxPowStartHeight)
+        if (nHeight < params.GetConsensus().nAuxPowStartHeight)
             return state.DoS(100, error("%s : premature auxpow block", __func__),
                              REJECT_INVALID, "time-too-new");
         if (!CheckAuxPowValidity(&block, params.GetConsensus()))

@@ -10,6 +10,7 @@
 #include <util/strencodings.h>
 #include <primitives/blockheader.h>
 #include <auxpow/consensus.h>
+#include <wallet/wallet.h>
 
 class CAuxPow : public CMerkleTx
 {

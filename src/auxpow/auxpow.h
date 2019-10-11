@@ -47,15 +47,4 @@ class CAuxPow : public CMerkleTx
     }
 };
 
-template<typename Stream> void SerReadWrite(Stream& s, std::shared_ptr<CAuxPow>& pobj, CSerActionSerialize _)
-{
-    ::Serialize(s, *pobj);
-}
-
-template<typename Stream> void SerReadWrite(Stream& s, std::shared_ptr<CAuxPow>& pobj, CSerActionUnserialize _)
-{
-    pobj.reset(new CAuxPow());
-    ::Unserialize(s, *pobj);
-}
-
 #endif // BITCOIN_AUXPOW_AUXPOW_H

@@ -36,3 +36,9 @@ void CBlockHeader::SetAuxPow(CAuxPow* pow)
         nVersion &= ~AuxPow::BLOCK_VERSION_AUXPOW;
     auxpow.reset(pow);
 }
+
+// Viacoin requires an instance of CAuxPow when unserializing a header, but CAuxPow is still incomplete during the
+// header phase.
+void CBlockHeader::SetEmptyAuxPow() {
+    SetAuxPow(new CAuxPow());
+}

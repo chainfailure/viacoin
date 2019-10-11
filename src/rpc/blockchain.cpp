@@ -133,7 +133,7 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* tip, const CBlockIn
     if (block.IsAuxPow()) {
         // this block includes auxpow
         UniValue auxpow(UniValue::VOBJ);
-        auxpow.pushKV("size", (int)::GetSerializeSize(*block.auxpow, SER_NETWORK, PROTOCOL_VERSION));
+        auxpow.pushKV("size", (int)::GetSerializeSize(*block.auxpow, PROTOCOL_VERSION));
 
         UniValue coinbasetx(UniValue::VOBJ);
         TxToUniv(*block.auxpow->tx, uint256(), coinbasetx, true, RPCSerializationFlags());

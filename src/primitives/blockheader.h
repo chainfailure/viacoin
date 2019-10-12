@@ -29,37 +29,24 @@ public:
         SetNull();
     }
 
-    // the field that indicates the serialization context has been removed, but the auxpow implementation relied on
-    // this to determine if the auxpow struct should be included in the output. this to prevent the auxpow to be
-    // included when hashing the blockheader.
-    template <typename Stream, typename Operation>
-    inline void SerializationOpHash(Stream& s, Operation ser_action) {
-        READWRITE(this->nVersion);
-        READWRITE(hashPrevBlock);
-        READWRITE(hashMerkleRoot);
-        READWRITE(nTime);
-        READWRITE(nBits);
-        READWRITE(nNonce);
-    }
-
-    template<typename Stream>
-    void SerializeForHash(Stream& s) const {
-        NCONST_PTR(this)->SerializationOpHash(s, CSerActionSerialize());
-    }
-
     void SetEmptyAuxPow();
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action) {
-        SerializationOpHash(s, ser_action);
+        READWRITE(this->nVersion);
+        READWRITE(hashPrevBlock);
+        READWRITE(hashMerkleRoot);
+        READWRITE(nTime);
+        READWRITE(nBits);
+        READWRITE(nNonce);
 
         if (!ser_action.ForRead()) {
             SetEmptyAuxPow();
         }
 
-        if (this->IsAuxPow()) {
+        if ((!(s.GetType() & SER_GETHASH)) && this->IsAuxPow()) {
             READWRITE(*auxpow);
         }
     }

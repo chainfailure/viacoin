@@ -985,8 +985,8 @@ size_t GetSerializeSize(const T& t, int nType, int nVersion = 0)
     return (CSizeComputer(nType, nVersion) << t).size();
 }
 
-template <typename... T>
-size_t GetSerializeSizeMany(int nVersion, const T&... t)
+template <typename S, typename T>
+size_t GetSerializeSize(const S& s, const T& t)
 {
     return (CSizeComputer(s.GetType(), s.GetVersion()) << t).size();
 }

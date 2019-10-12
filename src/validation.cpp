@@ -1052,7 +1052,7 @@ static bool WriteBlockToDisk(const CBlock& block, CDiskBlockPos& pos, const CMes
         return error("WriteBlockToDisk: OpenBlockFile failed");
 
     // Write index header
-    unsigned int nSize = GetSerializeSize(block, fileout.GetVersion());
+    unsigned int nSize = GetSerializeSize(fileout, block);
     fileout << messageStart << nSize;
 
     // Write block
@@ -1506,7 +1506,7 @@ bool UndoWriteToDisk(const CBlockUndo& blockundo, CDiskBlockPos& pos, const uint
         return error("%s: OpenUndoFile failed", __func__);
 
     // Write index header
-    unsigned int nSize = GetSerializeSize(blockundo, fileout.GetVersion());
+    unsigned int nSize = GetSerializeSize(fileout, blockundo);
     fileout << messageStart << nSize;
 
     // Write undo data
